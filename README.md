@@ -26,6 +26,9 @@ SELECT * WHERE {
 } ORDER BY desc(?rank)
 ```
 
+### Additional information
+https://github.com/athalhammer/danker
+
 ### Used docker images:
 
 * rogargon/fuseki-hdt-docker
