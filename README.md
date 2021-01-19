@@ -29,7 +29,7 @@ SELECT * WHERE {
   }
 } ORDER BY desc(?rank)
 ```
-
+![alt text](./example.png "Example query and output")
 ### Additional information
 https://github.com/athalhammer/danker
 
