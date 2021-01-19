@@ -1,0 +1,14 @@
+version: '3'
+services:
+    fuseki-hdt:
+        image: 'rogargon/fuseki-hdt-docker:latest'
+        ports:
+            - '3030:3030'
+        volumes:
+            - './2020-11-14.allwiki.links.rank.hdt:/opt/fuseki/dataset.hdt:ro'
+    yasgui:
+       image: 'erikap/yasgui'
+       ports:
+            - '80:80'
+       environment:
+               DEFAULT_SPARQL_ENDPOINT: "http://localhost:3030/dataset/sparql"
