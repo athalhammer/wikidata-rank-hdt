@@ -35,5 +35,5 @@ https://github.com/athalhammer/danker
 
 ### Used docker images:
 
-* (https://github.com/rogargon/fuseki-hdt-docker)[rogargon/fuseki-hdt-docker]
-* (https://github.com/erikap/docker-yasgui)[erikap/yasgui]
+* [rogargon/fuseki-hdt-docker](https://github.com/rogargon/fuseki-hdt-docker)
+* [erikap/yasgui](https://github.com/erikap/docker-yasgui)
