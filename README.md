@@ -2,7 +2,8 @@
 
 ### Quickstart:
 ```
-$ wget https://danker.s3.amazonaws.com/2020-11-14.allwiki.links.rank.hdt.bz2 && bunzip2 2020-11-14.allwiki.links.rank.hdt.bz2
+$ wget https://danker.s3.amazonaws.com/2020-11-14.allwiki.links.rank.hdt.bz2 && \
+       bunzip2 2020-11-14.allwiki.links.rank.hdt.bz2
 $ docker-compose up -d
 
 # open http://localhost in browser.
@@ -28,6 +29,9 @@ SELECT * WHERE {
   }
 } ORDER BY desc(?rank)
 ```
+
+### Additional information
+https://github.com/athalhammer/danker
 
 ### Used docker images:
 
