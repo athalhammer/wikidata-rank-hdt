@@ -36,8 +36,6 @@ SELECT * WHERE {
 } ORDER BY desc(?rank)
 ```
 ![alt text](./example.png "Example query and output")
-### Additional information
-https://github.com/athalhammer/danker
 
 ```
 # 27 Club by PageRank
@@ -68,6 +66,8 @@ SELECT DISTINCT * WHERE {
 } ORDER BY desc(?rank)
 ```
 
+### Additional information
+https://github.com/athalhammer/danker
 
 ### Used docker images:
 
