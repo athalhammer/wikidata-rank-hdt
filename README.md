@@ -11,16 +11,20 @@ $ docker-compose up -d
 
 ### Example query:
 ```
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX vrank: <http://purl.org/voc/vrank#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
 SELECT * WHERE {
   {
-    SELECT DISTINCT * WHERE {
-      SERVICE <https://query.wikidata.org/sparql> {
+    SERVICE <https://query.wikidata.org/sparql> {
+      SELECT DISTINCT ?uni ?uniLabel WHERE {
         ?uni wdt:P31/wdt:P279* wd:Q3918.
-        ?uni rdfs:label ?name FILTER regex(lang(?name), "^en$")
+        SERVICE wikibase:label {
+          bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+        }
       }
     }
   }
