@@ -34,10 +34,9 @@ SELECT * WHERE {
     ?uni vrank:pagerank ?rank.
   }
 } ORDER BY desc(?rank)
-```
-![alt text](./example.png "Example query and output")
 
-```
+
+
 # 27 Club by PageRank
 
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -45,13 +44,14 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX vrank: <http://purl.org/voc/vrank#>
+
 SELECT DISTINCT * WHERE {
   {
     SERVICE <https://query.wikidata.org/sparql> {
-      SELECT ?musician ?musicianLabel ?dob ?dod {
+      SELECT ?artist ?artistLabel ?dob ?dod {
         {
-          SELECT ?musician ?dod ?dob WHERE {
-            ?musician wdt:P106/wdt:P279* wd:Q639669  ;
+          SELECT ?artist ?dod ?dob WHERE {
+            ?artist wdt:P106/wdt:P279* wd:Q483501 ;
                       wdt:P569 ?dob ;
                       wdt:P570 ?dod .
             BIND(FLOOR((?dod - ?dob) / 365.2425) AS ?age).
@@ -65,7 +65,7 @@ SELECT DISTINCT * WHERE {
     }
   }
   OPTIONAL {
-    ?musician vrank:pagerank ?rank.
+    ?artist vrank:pagerank ?rank.
   }
 } ORDER BY DESC(?rank)
 ```
