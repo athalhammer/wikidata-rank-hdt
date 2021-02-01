@@ -48,12 +48,16 @@ PREFIX vrank: <http://purl.org/voc/vrank#>
 SELECT DISTINCT * WHERE {
   {
     SERVICE <https://query.wikidata.org/sparql> {
-      SELECT ?musician ?musicianLabel WHERE {
-        ?musician wdt:P106/wdt:P279* wd:Q639669 ;
-                                  wdt:P569 ?dob ;
-                                  wdt:P570 ?dod .
-        BIND(FLOOR((?dod - ?dob) / 365.2425) AS ?age).
-        FILTER (?age = 27)
+      SELECT ?musician ?musicianLabel ?dob ?dod {
+        {
+          SELECT ?musician ?dod ?dob WHERE {
+            ?musician wdt:P106/wdt:P279* wd:Q639669  ;
+                      wdt:P569 ?dob ;
+                      wdt:P570 ?dod .
+            BIND(FLOOR((?dod - ?dob) / 365.2425) AS ?age).
+            FILTER (?age = 27)
+          }
+        }
         SERVICE wikibase:label {
           bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
         }
@@ -63,7 +67,7 @@ SELECT DISTINCT * WHERE {
   OPTIONAL {
     ?musician vrank:pagerank ?rank.
   }
-} ORDER BY desc(?rank)
+} ORDER BY DESC(?rank)
 ```
 
 ### Additional information
