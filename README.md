@@ -35,6 +35,28 @@ SELECT * WHERE {
   }
 } ORDER BY desc(?rank)
 
+# Universities by PageRank (DBpedia URIs)
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX vrank: <http://purl.org/voc/vrank#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX schema: <http://schema.org/>
+
+SELECT * WHERE {
+  {
+    SELECT DISTINCT ?uni (URI(REPLACE(str(?article), "https://en.wikipedia.org/wiki", "http://dbpedia.org/resource")) as ?dbpedia) WHERE {
+      SERVICE <https://query.wikidata.org/sparql> {
+        ?uni wdt:P31/wdt:P279* wd:Q3918.
+        ?article schema:about ?uni .
+        ?article schema:inLanguage "en" .
+        ?article schema:isPartOf <https://en.wikipedia.org/> .
+      }
+    }
+  }
+  OPTIONAL {
+    ?uni vrank:pagerank ?rank.
+  }
+} ORDER BY desc(?rank) LIMIT 50
 
 
 # 27 Club by PageRank
