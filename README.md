@@ -11,6 +11,32 @@ $ docker-compose up -d
 
 ### Example queries:
 ```
+# Rankings of castles in Switzerland
+
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX vrank: <http://purl.org/voc/vrank#>
+SELECT * WHERE {
+  SERVICE <https://query.wikidata.org/sparql> {
+    select ?castle ?castleLabel where {
+      ?castle wdt:P31/wdt:P279 wd:Q57821.
+      ?castle wdt:P17 wd:Q39.
+      SERVICE wikibase:label {
+        bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
+      }
+    }
+  }
+  OPTIONAL {
+    ?castle vrank:pagerank ?rank.
+  }
+}
+ORDER BY DESC(?rank)
+```
+
+
+```
 # Top 50 items by PageRank (optionally links to English Wikipedia) 
 
 PREFIX vrank: <http://purl.org/voc/vrank#>
