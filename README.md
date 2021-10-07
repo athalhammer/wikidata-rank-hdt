@@ -58,11 +58,10 @@ SELECT ?item ?article ?rank WHERE {
     }
   }
 }
+```
 
 
-
-
-
+```
 # Universities by PageRank
 
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -86,11 +85,11 @@ SELECT * WHERE {
     ?uni vrank:pagerank ?rank.
   }
 } ORDER BY DESC(?rank)
+```
 
 
 
-
-
+```
 # Universities by PageRank (DBpedia URIs)
 
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -114,10 +113,10 @@ SELECT * WHERE {
     ?uni vrank:pagerank ?rank.
   }
 } ORDER BY DESC(?rank) LIMIT 50
+```
 
 
-
-
+```
 # 27 Club by PageRank
 
 PREFIX wd: <http://www.wikidata.org/entity/>
