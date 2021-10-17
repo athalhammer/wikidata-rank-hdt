@@ -18,11 +18,12 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX vrank: <http://purl.org/voc/vrank#>
+
 SELECT * WHERE {
   SERVICE <https://query.wikidata.org/sparql> {
-    select ?castle ?castleLabel where {
-      ?castle wdt:P31/wdt:P279 wd:Q57821.
-      ?castle wdt:P17 wd:Q39.
+    SELECT DISTINCT ?castle ?castleLabel WHERE {
+      ?castle wdt:P17/wdt:P279* wd:Q39.
+      ?castle wdt:P31/wdt:P279* wd:Q23413.
       SERVICE wikibase:label {
         bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
       }
@@ -33,6 +34,7 @@ SELECT * WHERE {
   }
 }
 ORDER BY DESC(?rank)
+
 ```
 
 
