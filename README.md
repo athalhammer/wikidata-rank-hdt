@@ -2,8 +2,9 @@
 
 ### Quickstart:
 ```
-$ wget https://danker.s3.amazonaws.com/2020-11-14.allwiki.links.rank.hdt.bz2 && \
-       bunzip2 2020-11-14.allwiki.links.rank.hdt.bz2
+$ wget https://danker.s3.amazonaws.com/2021-11-15.allwiki.links.rank.hdt.bz2 && \
+       bunzip2 2021-11-15.allwiki.links.rank.hdt.bz2 && \
+       mv 2021-11-15.allwiki.links.rank.hdt danker.hdt
 $ docker-compose up -d
 
 # open http://localhost in browser.
@@ -29,9 +30,8 @@ SELECT * WHERE {
       }
     }
   }
-  OPTIONAL {
-    ?castle vrank:pagerank ?rank.
-  }
+  ?castle vrank:pagerank ?rank.
+
 }
 ORDER BY DESC(?rank)
 
@@ -83,9 +83,8 @@ SELECT * WHERE {
       }
     }
   }
-  OPTIONAL {
-    ?uni vrank:pagerank ?rank.
-  }
+  ?uni vrank:pagerank ?rank.
+
 } ORDER BY DESC(?rank)
 ```
 
@@ -111,9 +110,7 @@ SELECT * WHERE {
       }
     }
   }
-  OPTIONAL {
-    ?uni vrank:pagerank ?rank.
-  }
+  ?uni vrank:pagerank ?rank.
 } ORDER BY DESC(?rank) LIMIT 50
 ```
 
@@ -146,9 +143,7 @@ SELECT DISTINCT * WHERE {
       }
     }
   }
-  OPTIONAL {
-    ?artist vrank:pagerank ?rank.
-  }
+  ?artist vrank:pagerank ?rank.
 } ORDER BY DESC(?rank)
 ```
 
