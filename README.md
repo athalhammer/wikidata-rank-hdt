@@ -2,9 +2,10 @@
 
 ### Quickstart:
 ```
-$ wget https://danker.s3.amazonaws.com/2021-11-15.allwiki.links.rank.hdt.bz2 && \
-       bunzip2 2021-11-15.allwiki.links.rank.hdt.bz2 && \
-       mv 2021-11-15.allwiki.links.rank.hdt danker.hdt
+$ VERSION="2022-11-10"
+$ wget https://danker.s3.amazonaws.com/"$VERSION".allwiki.links.rank.hdt.bz2 && \
+       bunzip2 "$VERSION".allwiki.links.rank.hdt.bz2 && \
+       mv "$VERSION".allwiki.links.rank.hdt danker.hdt
 $ docker-compose up -d
 
 # open http://localhost in browser.
