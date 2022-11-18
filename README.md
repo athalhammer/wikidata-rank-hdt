@@ -39,31 +39,6 @@ ORDER BY DESC(?rank)
 
 
 ```
-# Top 50 items by PageRank (optionally links to English Wikipedia) 
-
-PREFIX vrank: <http://purl.org/voc/vrank#>
-PREFIX schema: <http://schema.org/>
-
-SELECT ?item ?article ?rank WHERE {
-  {
-    {
-      SELECT * WHERE {
-        ?item vrank:pagerank ?rank.
-      } ORDER BY DESC(?rank) LIMIT 50
-    }
-  }
-  SERVICE <https://query.wikidata.org/sparql> {
-    OPTIONAL {
-      ?article schema:about ?item .
-      ?article schema:inLanguage "en" .
-      ?article schema:isPartOf <https://en.wikipedia.org/> .
-    }
-  }
-}
-```
-
-
-```
 # Universities by PageRank
 
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -88,7 +63,29 @@ SELECT * WHERE {
 } ORDER BY DESC(?rank)
 ```
 
+```
+# Top 50 items by PageRank (optionally links to English Wikipedia) 
 
+PREFIX vrank: <http://purl.org/voc/vrank#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?item ?article ?rank WHERE {
+  {
+    {
+      SELECT * WHERE {
+        ?item vrank:pagerank ?rank.
+      } ORDER BY DESC(?rank) LIMIT 50
+    }
+  }
+  SERVICE <https://query.wikidata.org/sparql> {
+    OPTIONAL {
+      ?article schema:about ?item .
+      ?article schema:inLanguage "en" .
+      ?article schema:isPartOf <https://en.wikipedia.org/> .
+    }
+  }
+}
+```
 
 ```
 # Universities by PageRank (DBpedia URIs)
