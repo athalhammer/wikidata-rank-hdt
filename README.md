@@ -1,5 +1,9 @@
 # danker-hdt-docker
 
+![Example showing a screenshot of universities ranked by Wikidata PageRank](example.jpeg "Example: Universities by Wikidata PageRank")
+
+
+
 ### Quickstart:
 ```
 $ VERSION="2022-11-10"
