@@ -34,11 +34,11 @@ gunzip qrank.csv.gz
 
 
 ### MERGE TO NTriples
-cat "$DANKER_VERSION".allwiki.links.rank | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#pagerank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#decimal> .;" > super_rank.nt
-cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> super_rank.nt
-tail -n+2 qrank.csv | sed "s;\(.*\)\,\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#qrank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> super_rank.nt
+cat "$DANKER_VERSION".allwiki.links.rank | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#pagerank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#decimal> .;" > uberank.nt
+cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> uberank.nt
+tail -n+2 qrank.csv | sed "s;\(.*\)\,\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#qrank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> uberank.nt
 
 
 ### Create HDT
 export JAVA_OPTIONS="-Xmx28G"
-java $JAVA_OPTIONS -cp hdt-java-cli.jar:hdt-java-core.jar:compress.jar:jcommander.jar:hdt-api.jar:slf4j.jar org.rdfhdt.hdt.tools.RDF2HDT -canonicalntfile super_rank.nt super_rank.hdt 
+java $JAVA_OPTIONS -cp hdt-java-cli.jar:hdt-java-core.jar:compress.jar:jcommander.jar:hdt-api.jar:slf4j.jar org.rdfhdt.hdt.tools.RDF2HDT -canonicalntfile uberank.nt uberank.hdt 
