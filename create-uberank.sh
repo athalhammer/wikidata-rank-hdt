@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DANKER_VERSION="2024-04-09"
+TODAY=$(date +"%Y-%m-%d")
 
 ### PREPARE HDT ENVIRONMENT
 MAVEN_REPO=https://repo1.maven.org/maven2
@@ -34,11 +35,11 @@ gunzip qrank.csv.gz
 
 
 ### MERGE TO NTriples
-cat "$DANKER_VERSION".allwiki.links.rank | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#pagerank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#decimal> .;" > uberank.nt
-cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> uberank.nt
-tail -n+2 qrank.csv | sed "s;\(.*\)\,\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#qrank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> uberank.nt
+cat "$DANKER_VERSION".allwiki.links.rank | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#pagerank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#decimal> .;" > "uberank-$TODAY.nt"
+cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> "uberank-$TODAY.nt"
+tail -n+2 qrank.csv | sed "s;\(.*\)\,\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#qrank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> "uberank-$TODAY.nt"
 
 
 ### Create HDT
 export JAVA_OPTIONS="-Xmx28G"
-java $JAVA_OPTIONS -cp hdt-java-cli.jar:hdt-java-core.jar:compress.jar:jcommander.jar:hdt-api.jar:slf4j.jar org.rdfhdt.hdt.tools.RDF2HDT -canonicalntfile uberank.nt uberank.hdt 
+java $JAVA_OPTIONS -cp hdt-java-cli.jar:hdt-java-core.jar:compress.jar:jcommander.jar:hdt-api.jar:slf4j.jar org.rdfhdt.hdt.tools.RDF2HDT -canonicalntfile "uberank-$TODAY.nt" "uberank-$TODAY.hdt"
