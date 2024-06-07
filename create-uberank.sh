@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DANKER_VERSION="2024-04-09"
+QRANK_VERSION=$(date --date="$(curl -I https://qrank.wmcloud.org/download/qrank.csv.gz | grep "last-modified: " | sed "s/^last-modified: \([^ ]*\), \([0-9][0-9]\) \([^ ]*\) \([0-9][0-9][0-9][0-9]\) \(.*\)$/\1 \3 \2 \5 \4/")" +"%Y-%m-%d")
 TODAY=$(date +"%Y-%m-%d")
 
 ### PREPARE HDT ENVIRONMENT
