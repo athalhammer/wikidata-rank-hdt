@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DANKER_VERSION="2024-04-09"
+DANKER_VERSION="2024-10-14"
 QRANK_VERSION=$(date --date="$(curl -I https://qrank.wmcloud.org/download/qrank.csv.gz | grep "last-modified: " | sed "s/^last-modified: \([^ ]*\), \([0-9][0-9]\) \([^ ]*\) \([0-9][0-9][0-9][0-9]\) \(.*\)$/\1 \3 \2 \5 \4/")" +"%Y-%m-%d")
 TODAY=$(date +"%Y-%m-%d")
 
@@ -28,16 +28,16 @@ wget -O hdt-java-cli.jar $HDTTOOLS_JAR && \
 
 ### Download and Decompress
 wget https://danker.s3.amazonaws.com/"$DANKER_VERSION".allwiki.links.rank.bz2
-wget https://danker.s3.amazonaws.com/"$DANKER_VERSION".allwiki.sitelinks.count.bz2
+#wget https://danker.s3.amazonaws.com/"$DANKER_VERSION".allwiki.sitelinks.count.bz2
 wget https://qrank.wmcloud.org/download/qrank.csv.gz
 bunzip2 "$DANKER_VERSION".allwiki.links.rank.bz2
-bunzip2 "$DANKER_VERSION".allwiki.sitelinks.count.bz2
+#bunzip2 "$DANKER_VERSION".allwiki.sitelinks.count.bz2
 gunzip qrank.csv.gz
 
 
 ### MERGE TO NTriples
 cat "$DANKER_VERSION".allwiki.links.rank | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#pagerank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#decimal> .;" > "uberank-$TODAY.nt"
-cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> "uberank-$TODAY.nt"
+#cat "$DANKER_VERSION".allwiki.sitelinks.count | sed "s;\(.*\)\t\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#sitelinkcount> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> "uberank-$TODAY.nt"
 tail -n+2 qrank.csv | sed "s;\(.*\)\,\(.*\);<http://www.wikidata.org/entity/\1> <http://purl.org/voc/vrank#qrank> \"\2\"^^<http://www.w3.org/2001/XMLSchema#integer> .;" >> "uberank-$TODAY.nt"
 
 
