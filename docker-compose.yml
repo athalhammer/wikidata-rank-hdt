@@ -1,4 +1,3 @@
-version: '3'
 services:
     fuseki-hdt:
         image: 'rogargon/fuseki-hdt-docker:latest'
@@ -7,7 +6,7 @@ services:
         volumes:
             - './rank.hdt:/opt/fuseki/dataset.hdt:ro'
     yasgui:
-       image: 'erikap/yasgui'
+       image: 'redpencil/yasgui:latest'
        ports:
             - '80:80'
        environment:
